@@ -1,0 +1,24 @@
+{
+  "name": "bb-js-hashmap",
+  "version": "0.0.1",
+  "homepage": "https://github.com/backbee/js-hashmap",
+  "authors": [
+    "Nicolas Dufreche <nicolas.dufreche@lp-digital.fr>"
+  ],
+  "description": "A javascript hashmap implementation",
+  "main": "hashmap.js",
+  "moduleType": [
+    "globals"
+  ],
+  "ignore": [
+      ".*",
+      "node_modules",
+      "bower_components",
+      "Gruntfile.js",
+      "package.json"
+  ],
+  "keywords": [
+    "hashmap"
+  ],
+  "license": "GNU"
+}
