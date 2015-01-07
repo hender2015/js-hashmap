@@ -128,7 +128,13 @@
      * Returns the last index of an element within the array equal to the specified value, or -1 if none is found.
      */
     HashMap.prototype.lastIndexOf = function () {
-        return this.keys.lastIndexOf();
+        var key = this.keys.lastIndexOf();
+
+        if (key !== -1) {
+            key = this.keys[key];
+        }
+
+        return key;
     };
     /**
      * Joins all elements of an array into a string.
