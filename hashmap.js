@@ -258,4 +258,5 @@
     };
 
     window.HashMap = HashMap;
+    return HashMap;
 }(window));
