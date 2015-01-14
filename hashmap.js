@@ -247,6 +247,11 @@
         return values;
     };
 
-    window.HashMap = HashMap;
-    return HashMap;
+    if (typeof define === 'function' && define.amd) {
+        define('bbhashmap', [], function () {
+            return HashMap;
+        });
+    } else {
+        window.BBHashMap = HashMap;
+    }
 }(window));
