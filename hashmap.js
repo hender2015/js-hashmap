@@ -19,12 +19,12 @@
 (function (window) {
     'use strict';
 
-    var setValues = function (HashMap, values) {
+    var setValues = function hashMapSetValues(HashMap, values) {
             var value;
 
             for (value in values) {
                 if (values.hasOwnProperty(value)) {
-                    if (values[value] instanceof [] && 2 === values[value].length) {
+                    if (values[value] instanceof Array && 2 === values[value].length) {
                         HashMap.set(values[value][0], values[value][1]);
                     } else {
                         HashMap.set(value, values[value]);
@@ -33,54 +33,44 @@
             }
         },
 
+        defineArrayProperty = function hashMapDefineArrayProperty(obj, property_name) {
+            Object.defineProperty(
+                obj,
+                property_name,
+                {
+                    value: [],
+                    writable: false,
+                    enumerable: false,
+                    configurable: false
+                }
+            );
+        },
+
+        defineSizeProperty = function hashMapDefineSizeProperty(obj, property_name) {
+            Object.defineProperty(
+                obj,
+                property_name,
+                {
+                    get: function hashMapDefineSizePropertyGet() {
+                        return this.map_values.length;
+                    },
+                    set: function hashMapDefineSizePropertySet() {
+                        return;
+                    },
+                    enumerable: false,
+                    configurable: false
+                }
+            );
+        },
+
         HashMap = function (values) {
-            Object.defineProperty(
-                this,
-                'map_keys',
-                {
-                    value: [],
-                    writable: false,
-                    enumerable: false,
-                    configurable: false
-                }
-            );
+            defineArrayProperty(this, 'map_keys');
 
-            Object.defineProperty(
-                this,
-                'map_values',
-                {
-                    value: [],
-                    writable: false,
-                    enumerable: false,
-                    configurable: false
-                }
-            );
+            defineArrayProperty(this, 'map_values');
 
-            Object.defineProperty(
-                this,
-                'length',
-                {
-                    get: function () {
-                        return this.map_values.length;
-                    },
-                    writable: false,
-                    enumerable: false,
-                    configurable: false
-                }
-            );
+            defineSizeProperty(this, 'length');
 
-            Object.defineProperty(
-                this,
-                'size',
-                {
-                    get: function () {
-                        return this.map_values.length;
-                    },
-                    writable: false,
-                    enumerable: false,
-                    configurable: false
-                }
-            );
+            defineSizeProperty(this, 'size');
 
             setValues(this, values);
         };
@@ -91,7 +81,7 @@
     /**
      * Sets the value for the key in the HashMap object. Returns the HashMap object.
      */
-    HashMap.prototype.set = function (key, value) {
+    HashMap.prototype.set = function hashMapSet(key, value) {
         this.map_keys.push(key);
         this.map_values.push(value);
         return this;
@@ -99,7 +89,7 @@
     /**
      * Returns the value associated to the key, or undefined if there is none.
      */
-    HashMap.prototype.get = function (key) {
+    HashMap.prototype.get = function hashMapGet(key) {
         var value = this.map_keys.indexOf(key);
 
         if (value !== -1) {
@@ -113,7 +103,7 @@
     /**
      * Returns a boolean asserting whether a value has been associated to the key in the HashMap object or not.
      */
-    HashMap.prototype.has = function (key) {
+    HashMap.prototype.has = function hashMapHas(key) {
         return -1 === this.map_keys.indexOf(key);
     };
 
@@ -123,7 +113,7 @@
     /**
      * Removes any value associated to the key and returns the value that HashMap.prototype.has(value) would have previously returned. HashMap.prototype.has(key) will return false afterwards.
      */
-    HashMap.prototype.delete = function (key) {
+    HashMap.prototype.delete = function hashMapDelete(key) {
         key = this.map_keys.indexOf(key);
 
         if (key !== -1) {
@@ -137,7 +127,7 @@
     /**
      * Removes all key/value pairs from the HashMap object.
      */
-    HashMap.prototype.clear = function () {
+    HashMap.prototype.clear = function hashMapClear() {
         while (this.map_values.length > 0) {
             this.map_values.pop();
             this.map_keys.pop();
@@ -150,7 +140,7 @@
     /**
      * Adds one element to the end of an array and returns the new length of the array.
      */
-    HashMap.prototype.push = function (value) {
+    HashMap.prototype.push = function hashMapPush(value) {
         this.map_values.push(value);
         this.map_keys.push(Array.lastIndexOf(this.map_values));
         return this.length;
@@ -158,7 +148,7 @@
     /**
      * Removes the last element from an array and returns that element
      */
-    HashMap.prototype.pop = function () {
+    HashMap.prototype.pop = function hashMapPop() {
         this.map_keys.pop();
 
         return this.map_values.pop();
@@ -166,7 +156,7 @@
     /**
      * Removes the first element from an array and returns that element.
      */
-    HashMap.prototype.shift = function () {
+    HashMap.prototype.shift = function hashMapShift() {
         this.map_keys.shift();
 
         return this.map_values.shift();
@@ -174,7 +164,7 @@
     /**
      * Reverses the order of the elements of an array — the first becomes the last, and the last becomes the first.
      */
-    HashMap.prototype.reverse = function () {
+    HashMap.prototype.reverse = function hashMapReverse() {
         this.map_keys.reverse();
         this.map_values.reverse();
 
@@ -187,7 +177,7 @@
     /**
      * Returns the first (least) index of an element within the array equal to the specified value, or -1 if none is found.
      */
-    HashMap.prototype.indexOf = function (value) {
+    HashMap.prototype.indexOf = function hashMapIndexOf(value) {
         var key = this.map_values.indexOf(value);
 
         if (key !== -1) {
@@ -199,8 +189,8 @@
     /**
      * Returns the last index of an element within the array equal to the specified value, or -1 if none is found.
      */
-    HashMap.prototype.lastIndexOf = function () {
-        var key = this.map_keys.lastIndexOf();
+    HashMap.prototype.lastIndexOf = function hashMapLastIndexOf(value) {
+        var key = this.map_values.lastIndexOf(value);
 
         if (key !== -1) {
             key = this.map_keys[key];
@@ -211,7 +201,7 @@
     /**
      * Joins all elements of an array into a string.
      */
-    HashMap.prototype.join = function (separator) {
+    HashMap.prototype.join = function hashMapJoin(separator) {
         return this.map_values.join(separator);
     };
 
@@ -221,36 +211,36 @@
     /**
      * Calls callbackFn once for each key-value pair present in the HashMap object, in insertion order. If a thisArg parameter is provided to forEach, it will be used as the this value for each callback.
      */
-    HashMap.prototype.forEach = function (callback, instance) {
+    HashMap.prototype.forEach = function hashMapForEach(callback, instance) {
         var key;
         if (!(instance instanceof {})) {
             instance = undefined;
         }
 
-        for (key = this.map_values.length - 1; key >= 0; key = key - 1) {
+        for (key = 0; key < this.map_values.length; key = key + 1) {
             callback.call(instance, this.map_values[key], this.map_keys[key], this);
         }
     };
     /**
      * Returns a new Iterator object that contains the keys for each element in the HashMap object in insertion order.
      */
-    HashMap.prototype.keys = function () {
+    HashMap.prototype.keys = function hashMapKeys() {
         return this.map_keys;
     };
     /**
      * Returns a new Iterator object that contains the values for each element in the HashMap object in insertion order.
      */
-    HashMap.prototype.values = function () {
+    HashMap.prototype.values = function hashMapValues() {
         return this.map_values;
     };
     /**
      * Returns returns a new Iterator object that contains an array of [key, value] for each element in the HashMap object in insertion order.
      */
-    HashMap.prototype.entries = function () {
+    HashMap.prototype.entries = function hashMapEntries() {
         var key,
             values = [];
 
-        for (key = this.map_values.length - 1; key >= 0; key = key - 1) {
+        for (key = 0; key < this.map_values.length; key = key + 1) {
             values.push([this.map_keys[key], this.map_values[key]]);
         }
 
