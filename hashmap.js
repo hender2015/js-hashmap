@@ -104,7 +104,7 @@
      * Returns a boolean asserting whether a value has been associated to the key in the HashMap object or not.
      */
     HashMap.prototype.has = function hashMapHas(key) {
-        return -1 === this.map_keys.indexOf(key);
+        return -1 !== this.map_keys.indexOf(key);
     };
 
     /**
