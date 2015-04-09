@@ -4,7 +4,7 @@ backbee/js-hashmap
 A javascript hashmap implementation
 
 ##Installation:
-bower install bb-js-hashmap --save
+bower install backbee-js-hashmap --save
 
 
 
