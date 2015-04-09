@@ -1,5 +1,5 @@
 {
-  "name": "hashmap",
+  "name": "backbee-js-hashmap",
   "version": "0.0.1",
   "description": "A javascript hashmap implementation",
   "main": "hashmap.js",
