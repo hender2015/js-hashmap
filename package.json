@@ -1,11 +1,11 @@
 {
-  "name": "backbee-js-hashmap",
+  "name": "js-hashmap",
   "version": "0.0.1",
   "description": "A javascript hashmap implementation",
   "main": "hashmap.js",
   "repository": {
     "type": "git",
-    "url": "htpps://github.com/backbee/js-hashmap"
+    "url": "htpps://github.com/Lp-digital/js-hashmap"
   },
   "keywords": [],
   "author": "nicolas.dufreche@lp-digital.fr",
